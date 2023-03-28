@@ -41,7 +41,7 @@ jobs:
       run: |
         # Build and tag the image
         docker build \
-          -t quay.io/$QUAY_USER/$LATEST_IMAGE
+          -t quay.io/$QUAY_USER/$LATEST_IMAGE \
           -t $CONTAINER_IMAGE \
           -t quay.io/$QUAY_USER/$CONTAINER_IMAGE ./
            
