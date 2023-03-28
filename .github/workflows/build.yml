@@ -13,10 +13,9 @@ name: Build and Push to ECR
 
 # https://docs.aws.amazon.com/cli/latest/userguide/cli-configure-envvars.html
 env:
+  QUAY_URL: ${{ secrets.QUAY_URL }}
   QUAY_USER: ${{ secrets.QUAY_USER }}
   QUAY_PASS: ${{ secrets.QUAY_PASS }}
-  QUAY_URL: ${{ secrets.QUAY_URL }}
-  QUAY_URL: ${{ secrets.QUAY_URL }}
   CONFIGMAP: ${{ secrets.CONFIGMAP }}
   CONTAINER_IMAGE: webapp:${{ github.sha }}
   PROJECT_NAME: webapp
