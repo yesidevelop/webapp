@@ -18,6 +18,7 @@ env:
   QUAY_PASS: ${{ secrets.QUAY_PASS }}
   KUBECONFIG: ${{ secrets.KUBECONFIG }}
   CONTAINER_IMAGE: webapp:${{ github.sha }}
+  LATEST_IMAGE: webapp:latest
   PROJECT_NAME: webapp
 
 jobs:
@@ -40,7 +41,7 @@ jobs:
       run: |
         # Build and tag the image
         docker build \
-          -t latest \
+          -t quay.io/$QUAY_USER/$LATEST_IMAGE
           -t $CONTAINER_IMAGE \
           -t quay.io/$QUAY_USER/$CONTAINER_IMAGE ./
            
@@ -62,5 +63,6 @@ jobs:
         EOL
         curl --location -o /usr/local/bin/kubectl "https://dl.k8s.io/release/$(curl -L -s https://dl.k8s.io/release/stable.txt)/bin/linux/amd64/kubectl"
         /usr/local/bin/kubectl apply -f kubernetes/ -n c2e --kubeconfig kconfig
+
 
         
