@@ -58,6 +58,6 @@ jobs:
         export DOCKER_IMAGE_NAME=quay.io/$QUAY_USER/$CONTAINER_IMAGE
         echo -e $KUBECONFIG > kconfig
         curl --location -o /usr/local/bin/kubectl "https://dl.k8s.io/release/$(curl -L -s https://dl.k8s.io/release/stable.txt)/bin/linux/amd64/kubectl"
-        /usr/local/bin/kubectl apply -f kubernetes/ -n c2e --kubeconfig $(pwd)/kconfig'
+        /usr/local/bin/kubectl apply -f kubernetes/ -n c2e --kubeconfig $(pwd)/kconfig
 
         
