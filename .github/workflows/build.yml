@@ -56,7 +56,6 @@ jobs:
       run: |
         # Deploy to Kubernetes
         export DOCKER_IMAGE_NAME=quay.io/$QUAY_USER/$CONTAINER_IMAGE
-      # echo -e $KUBECONFIG > kconfig
         cat > kconfig << EOL
         ${KUBECONFIG}
         EOL
