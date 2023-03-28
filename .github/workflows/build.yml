@@ -34,7 +34,7 @@ jobs:
     - name: Login Docker
       run: |
         # Login to AWS ECR
-        docker login quay.io -u="${QUAY_USER}"" -p="${QUAY_PASS}"
+        docker login quay.io -u="${QUAY_USER}" -p="${QUAY_PASS}"
         
     - name: Build and tag the image
       run: |
