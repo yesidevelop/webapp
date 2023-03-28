@@ -16,7 +16,7 @@ env:
   QUAY_URL: ${{ secrets.QUAY_URL }}
   QUAY_USER: ${{ secrets.QUAY_USER }}
   QUAY_PASS: ${{ secrets.QUAY_PASS }}
-  CONFIGMAP: ${{ secrets.CONFIGMAP }}
+  KUBECONFIG: ${{ secrets.KUBECONFIG }}
   CONTAINER_IMAGE: webapp:${{ github.sha }}
   PROJECT_NAME: webapp
 
@@ -56,7 +56,7 @@ jobs:
       run: |
         # Deploy to Kubernetes
         export DOCKER_IMAGE_NAME=quay.io/$QUAY_USER/$CONTAINER_IMAGE
-        echo -e $CONFIGMAP > kconfig
+        echo -e $KUBECONFIG > kconfig
         cat kconfig
         echo -e "Hello \nWorld \n" >> greetings.txt
         cat greetings.txt
