@@ -1,0 +1,14 @@
+extends ../node_modules/pug-bootstrap/_bootstrap
+
+append body
+  .container-flexible
+    +navbar-fixed("C2E","navbar","inverse")
+      +nav_item("/") Home
+      +nav_item("/media") Media
+      +nav_item("/cms", "active") CMS
+      +nav_item("/authoring") Authoring
+    <div style="margin-top:100px">
+      h1= data.title
+      img(src=data.src)
+    </div>
+    
