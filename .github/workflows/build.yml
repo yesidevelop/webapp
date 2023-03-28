@@ -1,0 +1,60 @@
+# build.yml
+on:
+  pull_request:
+    paths:
+    - "**"
+  push:
+    paths:
+    - "**"
+    branches:         # array of glob patterns matching against refs/heads. Optional; defaults to all
+    - master          # triggers on pushes that contain changes in master
+
+name: Build and Push to ECR
+
+# https://docs.aws.amazon.com/cli/latest/userguide/cli-configure-envvars.html
+env:
+  QUAY_USER: ${{ secrets.QUAY_USER }}
+  QUAY_PASS: ${{ secrets.QUAY_PASS }}
+  QUAY_URL: ${{ secrets.QUAY_URL }}
+  QUAY_URL: ${{ secrets.QUAY_URL }}
+  CONFIGMAP: ${{ secrets.CONFIGMAP }}
+  CONTAINER_IMAGE: webapp:${{ github.sha }}
+  PROJECT_NAME: webapp
+
+jobs:
+  build-and-push:
+    name: Build and deploy
+    runs-on: ubuntu-latest
+    steps:
+
+    - name: Checkout
+      uses: actions/checkout@master
+
+    # Add steps here like linting, testing, minification, etc.
+      
+    - name: Login Docker
+      run: |
+        # Login to AWS ECR
+        docker login quay.io -u="${QUAY_USER}"" -p="${QUAY_PASS}"
+        
+    - name: Build and tag the image
+      run: |
+        # Build and tag the image
+        docker build \
+          -t $CONTAINER_IMAGE \
+          -t quay.io/$QUAY_USER/$CONTAINER_IMAGE ./
+           
+          
+    # Add additional steps here like scanning of image
+
+    # Only push to registry on master
+    - name: Push Image
+      run: |
+        # Push image to AWS ECR
+        docker push quay.io/$QUAY_USER/$CONTAINER_IMAGE
+      
+    - name: Deploy
+      run: |
+        # Deploy to Kubernetes
+        export DOCKER_IMAGE_NAME=quay.io/$QUAY_USER/$CONTAINER_IMAGE
+        
